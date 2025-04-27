@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AngularJS User Age Input Demo</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="userAge.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            max-width: 600px;
+        }
+        h1 {
+            color: #333;
+        }
+        .form-group {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            padding: 8px;
+            width: 300px;
+            font-size: 16px;
+        }
+        button {
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .reset-button {
+            background-color: #f44336;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
+        .age-message {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body ng-app="userAgeApp" ng-controller="UserAgeController">
+    <h1>{{title}}</h1>
+    
+    <div class="form">
+        <div class="form-group">
+            <label for="userName">Your Name:</label>
+            <input type="text" id="userName" ng-model="user.name" placeholder="Enter your name">
+        </div>
+        
+        <div class="form-group">
+            <label for="userAge">Your Age:</label>
+            <input type="number" id="userAge" ng-model="user.age" placeholder="Enter your age">
+        </div>
+        
+        <div class="form-group">
+            <button class="reset-button" ng-click="resetForm()">Reset</button>
+        </div>
+    </div>
+    
+    <div class="result" ng-show="user.name || user.age">
+        <h3>Hello, {{user.name || 'Guest'}}!</h3>
+        
+        <div ng-show="user.age !== null">
+            <p>Your age is: {{user.age}}</p>
+            <p class="age-message">{{getAgeMessage()}}</p>
+        </div>
+    </div>
+</body>
+</html> 

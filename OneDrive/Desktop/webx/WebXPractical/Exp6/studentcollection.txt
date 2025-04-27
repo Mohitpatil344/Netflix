@@ -1,0 +1,18 @@
+q1 n q2
+1. Open your MongoDB shell (or connect using MongoDB Compass or VS Code extension).
+
+2. Switch to / Create the collegeDB database:
+use collegeDB
+
+
+3. Create the students collection and insert some documents:
+
+db.students.insertMany([
+  { name: "Aryan", age: 20, major: "Computer Science" },
+  { name: "Varun", age: 22, major: "Electrical Engineering" },
+  { name: "Ravi", age: 21, major: "Mechanical Engineering" }
+]);
+
+4. Display all inserted student documents:
+
+db.students.find().pretty() 

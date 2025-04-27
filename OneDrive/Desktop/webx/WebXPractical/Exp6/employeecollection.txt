@@ -1,0 +1,19 @@
+3 and 4
+1. Switch to the company database:
+use company
+
+db.employees.insertMany([
+  { name: "Amit", position: "Software Engineer", age: 28 },
+  { name: "Priya", position: "Data Analyst", age: 25 },
+  { name: "Rahul", position: "HR Manager", age: 32 }
+]);
+
+
+2. Display all employee documents from the employees collection:
+
+db.employees.find().pretty()
+
+for exp Q4
+
+use collegeDB
+db.students.deleteOne({ name: "Ravi" })

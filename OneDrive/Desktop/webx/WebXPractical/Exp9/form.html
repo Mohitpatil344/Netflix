@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX Form Example</title>
+</head>
+<body>
+    <h2>AJAX Form Submission Example</h2>
+    <p>Enter your details and submit the form. Data will be sent using AJAX.</p>
+    
+    <form id="userForm">
+        <div>
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <br>
+        <div>
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+    
+    <div id="result">
+    </div>
+    
+    <script>
+        document.getElementById('userForm').addEventListener('submit', submitForm);
+        
+        function submitForm(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            
+            const xhr = new XMLHttpRequest();
+            
+            xhr.open('POST', 'https://jsonplaceholder.typicode.com/posts', true);
+            xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
+            
+            xhr.onload = function() {
+                if (this.status === 201) {
+                    const response = JSON.parse(this.responseText);
+                    
+                    let output = '<h3>Form Submitted Successfully!</h3>';
+                    output += '<p>The server responded with:</p>';
+                    output += '<pre>' + JSON.stringify(response, null, 2) + '</pre>';
+                    
+                    document.getElementById('result').innerHTML = output;
+                    
+                    document.getElementById('userForm').reset();
+                } else {
+                    document.getElementById('result').innerHTML = 
+                        '<p>Error submitting form. Status: ' + this.status + '</p>';
+                }
+            };
+            
+            xhr.onerror = function() {
+                document.getElementById('result').innerHTML = 
+                    '<p>Network error occurred</p>';
+            };
+            
+            const data = JSON.stringify({
+                name: name,
+                email: email
+            });
+            
+            xhr.send(data);
+            
+            document.getElementById('result').innerHTML = '<p>Submitting form data...</p>';
+        }
+    </script>
+</body>
+</html>

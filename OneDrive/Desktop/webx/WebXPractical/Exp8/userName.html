@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AngularJS User Name Input Demo</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="userName.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            max-width: 600px;
+        }
+        h1 {
+            color: #333;
+        }
+        .form-group {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            padding: 8px;
+            width: 300px;
+            font-size: 16px;
+        }
+        button {
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .reset-button {
+            background-color: #f44336;
+        }
+        .greeting {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body ng-app="userNameApp" ng-controller="UserNameController">
+    <h1>{{title}}</h1>
+    
+    <div class="form">
+        <div class="form-group">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" ng-model="user.firstName" placeholder="Enter your first name">
+        </div>
+        
+        <div class="form-group">
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" ng-model="user.lastName" placeholder="Enter your last name">
+        </div>
+        
+        <div class="form-group">
+            <button class="reset-button" ng-click="resetForm()">Reset</button>
+        </div>
+    </div>
+    
+    <div class="greeting" ng-show="user.firstName || user.lastName">
+        <h3>Hello, {{user.firstName}} {{user.lastName}}!</h3>
+        <p ng-show="user.firstName && user.lastName">Thank you for providing your full name.</p>
+        <p ng-show="user.firstName && !user.lastName">You've only provided your first name.</p>
+        <p ng-show="!user.firstName && user.lastName">You've only provided your last name.</p>
+    </div>
+</body>
+</html> 

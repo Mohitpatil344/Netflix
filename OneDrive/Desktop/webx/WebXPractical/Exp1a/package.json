@@ -1,0 +1,17 @@
+{
+  "name": "typescript-demos",
+  "version": "1.0.0",
+  "description": "TypeScript demos for inheritance, access specifiers, and interfaces",
+  "scripts": {
+    "compile": "tsc",
+    "run:dog": "ts-node dog.ts",
+    "run:student": "ts-node student.ts",
+    "run:shape": "ts-node shape.ts",
+    "run:person": "ts-node person.ts"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.5",
+    "ts-node": "^10.9.1",
+    "@types/node": "^18.15.0"
+  }
+} 

@@ -1,0 +1,10 @@
+flask-login-app
+├── src
+│   ├── app.py
+│   ├── templates
+│   │   ├── login.html
+│   │   └── success.html
+│   └── static
+│       └── styles.css
+├── requirements.txt
+└── README.md

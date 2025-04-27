@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX Button Example</title>
+</head>
+<body>
+    <h2>AJAX Data Fetch Example</h2>
+    <p>Click the button below to fetch data from a remote server using AJAX.</p>
+    
+    <button id="fetchButton">Fetch Data</button>
+    
+    <div id="result">
+    </div>
+    
+    <script>
+        document.getElementById('fetchButton').addEventListener('click', fetchData);
+        
+        function fetchData() {
+            const xhr = new XMLHttpRequest();
+            
+            xhr.open('GET', 'https://jsonplaceholder.typicode.com/users', true);
+            
+            xhr.onload = function() {
+                if (this.status === 200) {
+                    const users = JSON.parse(this.responseText);
+                    
+                    let output = '<h3>Users</h3>';
+                    output += '<ul>';
+                    
+                    users.forEach(function(user) {
+                        output += `
+                            <li>
+                                <strong>Name:</strong> ${user.name}<br>
+                                <strong>Email:</strong> ${user.email}<br>
+                                <strong>Phone:</strong> ${user.phone}
+                            </li>
+                        `;
+                    });
+                    
+                    output += '</ul>';
+                    
+                    document.getElementById('result').innerHTML = output;
+                } else {
+                    document.getElementById('result').innerHTML = 
+                        '<p>Error loading data. Status: ' + this.status + '</p>';
+                }
+            };
+            
+            xhr.onerror = function() {
+                document.getElementById('result').innerHTML = 
+                    '<p>Network error occurred</p>';
+            };
+            
+            xhr.send();
+            
+            document.getElementById('result').innerHTML = '<p>Loading data...</p>';
+        }
+    </script>
+</body>
+</html>

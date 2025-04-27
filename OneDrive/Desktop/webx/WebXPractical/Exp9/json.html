@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX JSON Example</title>
+</head>
+<body>
+    <h2>AJAX JSON Data Example</h2>
+    <p>Click the button below to fetch JSON data using AJAX.</p>
+    
+    <button id="fetchJsonButton">Fetch JSON</button>
+    
+    <div id="result">
+    </div>
+    
+    <script>
+        document.getElementById('fetchJsonButton').addEventListener('click', fetchJsonData);
+        
+        function fetchJsonData() {
+            const xhr = new XMLHttpRequest();
+            
+            xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts/1', true);
+            
+            xhr.onload = function() {
+                if (this.status === 200) {
+                    const post = JSON.parse(this.responseText);
+                    
+                    let output = '<h3>Post Details</h3>';
+                    output += '<div>';
+                    output += '<p><strong>Title:</strong> ' + post.title + '</p>';
+                    output += '<p><strong>Body:</strong> ' + post.body + '</p>';
+                    output += '<p><strong>User ID:</strong> ' + post.userId + '</p>';
+                    output += '<p><strong>Post ID:</strong> ' + post.id + '</p>';
+                    output += '</div>';
+                    
+                    output += '<button id="fetchCommentsButton">Fetch Comments</button>';
+                    output += '<div id="comments"></div>';
+                    
+                    document.getElementById('result').innerHTML = output;
+                    
+                    document.getElementById('fetchCommentsButton').addEventListener('click', function() {
+                        fetchComments(post.id);
+                    });
+                    
+                } else {
+                    document.getElementById('result').innerHTML = 
+                        '<p>Error loading data. Status: ' + this.status + '</p>';
+                }
+            };
+            
+            xhr.onerror = function() {
+                document.getElementById('result').innerHTML = 
+                    '<p>Network error occurred</p>';
+            };
+            
+            xhr.send();
+            
+            document.getElementById('result').innerHTML = '<p>Loading JSON data...</p>';
+        }
+        
+        function fetchComments(postId) {
+            const xhr = new XMLHttpRequest();
+            
+            xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts/' + postId + '/comments', true);
+            
+            xhr.onload = function() {
+                if (this.status === 200) {
+                    const comments = JSON.parse(this.responseText);
+                    
+                    let output = '<h4>Comments</h4>';
+                    
+                    if (comments.length === 0) {
+                        output += '<p>No comments found.</p>';
+                    } else {
+                        output += '<ul>';
+                        
+                        comments.forEach(function(comment) {
+                            output += '<li>';
+                            output += '<p><strong>Name:</strong> ' + comment.name + '</p>';
+                            output += '<p><strong>Email:</strong> ' + comment.email + '</p>';
+                            output += '<p><strong>Comment:</strong> ' + comment.body + '</p>';
+                            output += '</li>';
+                        });
+                        
+                        output += '</ul>';
+                    }
+                    
+                    document.getElementById('comments').innerHTML = output;
+                } else {
+                    document.getElementById('comments').innerHTML = 
+                        '<p>Error loading comments. Status: ' + this.status + '</p>';
+                }
+            };
+            
+            xhr.onerror = function() {
+                document.getElementById('comments').innerHTML = 
+                    '<p>Network error occurred</p>';
+            };
+            
+            xhr.send();
+            
+            document.getElementById('comments').innerHTML = '<p>Loading comments...</p>';
+        }
+    </script>
+</body>
+</html>
